@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ascaped - zart zort oyun</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-title">zart zort oyun (BETA)</div>
+    <canvas id="gameCanvas" width="800" height="700"></canvas>
+    <div id="levelUpText" class="level-up-text"></div>
+
+    <div class="info">
+      <div id="health">
+          <i data-lucide="heart"></i>
+          <span>Sağlık: 100</span>
+      </div>
+      <div id="score">
+          <i data-lucide="trophy"></i>
+          <span>Puan: 0</span>
+      </div>
+      <div id="level">
+          <i data-lucide="zap"></i>
+          <span>Seviye: 1</span>
+      </div>
+  </div>
+  
+  <div class="left-panel">
+    <div class="minimap-container">
+        <canvas id="minimapCanvas" width="150" height="150"></canvas>
+        <div class="minimap-label">Minimap</div>
+    </div>
+    
+    <div class="cooldown-container">
+        <div class="cooldown-item" id="dashCooldown">
+            <div class="cooldown-icon">C</div>
+            <div class="cooldown-bar"></div>
+        </div>
+        
+        <div class="cooldown-item" id="shieldCooldown">
+            <div class="cooldown-icon">Q</div>
+            <div class="cooldown-bar"></div>
+        </div>
+        
+        <div class="cooldown-item" id="ultimateCooldown">
+            <div class="cooldown-icon">R</div>
+            <div class="cooldown-bar"></div>
+        </div>
+     </div>
+  </div>
+</div>
+
+    <div class="border">
+        <div style="text-align: center; font-weight: bold;">Ateş Modları</div>
+        <div style="text-align: left;"> 
+            1: Otomatik - Enerji Topu<br>
+            2: Lazer - Can Hırsızı<br>
+            3: Bomba - Alev Makinesi<br>
+            4: Işın - Asit Spreyi<br>
+            5: Hızlı SG - Drone Füzesi<br>
+            6: Güçlü SG - Mutasyonlu Işın<br>
+            7: Yıldırım - Şarjlı Füzyon<br>
+            8: Plazma Topu - Yakıcı Lazer Işınları<br>
+            9: Kara Delik - Güçlendirilmiş SG<br>
+            0: Yumruk
+        </div>
+    </div>
+
+    <div class="largeBorder">
+        <div style="text-align: center; font-weight: bold;">Kontroller</div>
+        <div style="text-align: left;">
+            <p><strong>W,A,S,D:</strong> Hareket</p>
+            <p><strong>Sol Fare:</strong> Ateş Et</p>
+            <p><strong>G:</strong> Kategori Değiştir</p>
+            <p><strong>C:</strong> Dash At</p>
+            <p><strong>Q:</strong> Kalkan Aktifleştir</p>
+            <p><strong>R:</strong> Ultimate Kullan</p>
+        </div>
+    </div>
+
+    <div id="warningScreen" class="warning-screen">
+        <img src="warning.png" alt="Uyarı" class="warning-img">
+    </div>
+
+    <div id="startScreen" class="game-menu">
+      <div class="menu-content">
+          <!-- Logo -->
+          <img src="gamelogo.png" alt="Oyun Logo" class="game-logo">
+          
+          <div class="menu-buttons">
+              <button onclick="startGame()" class="menu-button">OYUNA BAŞLA</button>
+              <button onclick="toggleSettings()" class="menu-button">AYARLAR</button>
+          </div>
+  
+          <div class="game-footer">
+            <div class="version-info">BETA v3</div>
+            <div class="warning-text">"kahpelere inat yaşa ve ÖLDÜR."</div>
+        </div>
+      </div>
+  </div>
+
+    <!-- index.html defeatScreen update -->
+<div id="defeatScreen" class="game-menu" style="display: none;">
+  <div class="menu-content">
+      <!-- Logo/Image -->
+      <img src="defeatscreen.png" alt="Yenilgi Ekranı" class="game-logo">
+      
+      <div class="menu-buttons">
+          <button onclick="restartGame()" class="menu-button">TEKRAR OYNA</button>
+          <button onclick="returnToMenu()" class="menu-button menu-button-secondary">MENÜYE GERİ DÖN</button>
+      </div>
+
+      <div class="game-footer">
+          <div class="defeat-text">"Başarısızlık son değildir..."</div>
+      </div>
+      
+      <!-- Stats panel will be inserted here by updateStatsDisplay() -->
+  </div>
+</div>
+
+    <!-- index.html victoryScreen update -->
+<div id="victoryScreen" class="game-menu" style="display: none;">
+  <div class="menu-content">
+      <!-- Logo/Image -->
+      <img src="victoryscreen.png" alt="Zafer Ekranı" class="game-logo">
+      
+      <div class="menu-buttons">
+          <button onclick="restartGame()" class="menu-button">TEKRAR OYNA</button>
+          <button onclick="returnToMenu()" class="menu-button menu-button-secondary">MENÜYE GERİ DÖN</button>
+      </div>
+
+      <div class="game-footer">
+          <div class="victory-text">"Tebrik ederim, kahpelere inat kazandın."</div>
+      </div>
+      
+      <!-- Stats panel will be inserted here by updateStatsDisplay() -->
+  </div>
+</div>
+
+    <img id="settingsButton" src="settings.png" onclick="toggleSettings()">
+    <img id="shopButton" src="shop.png" onclick="toggleShop()">
+
+    <div id="shopScreen" class="shop-screen" style="display: none;">
+      <div class="shop-content">
+          <h2>Dükkan</h2>
+          <div id="shopItems">
+          </div>
+      </div>
+  </div>
+
+  <div id="currency">
+    <img src="coin.png" width="20" height="20">
+    <span>0</span>
+</div>
+
+    <div id="settingsScreen" class="settings-screen" style="display: none;">
+      <div class="settings-content">
+        <div class="settings-left">
+            <h2>Ayarlar</h2>
+            <div class="setting-item">
+                <div class="setting-header">
+                    <label for="musicVolume">Müzik Sesi:</label>
+                    <span id="musicValue">50%</span>
+                </div>
+                <input type="range" id="musicVolume" min="0" max="100" value="50">
+            </div>
+            
+            <div class="setting-item">
+                <div class="setting-header">
+                    <label for="soundVolume">Oyun Sesi:</label>
+                    <span id="soundValue">50%</span>
+                </div>
+                <input type="range" id="soundVolume" min="0" max="100" value="50">
+            </div>
+          
+          <div class="setting-item">
+            <label for="themeSelect">Site Teması:</label>
+            <select id="themeSelect" onchange="changeTheme()">
+              <option value="default">Varsayılan (Mavi)</option>
+              <option value="red">Kırmızı</option>
+              <option value="green">Yeşil</option>
+              <option value="purple">Mor</option>
+              <option value="orange">Turuncu</option>
+              <option value="black">Siyah</option>
+              <option value="random">RANDOM</option>
+            </select>
+          </div>
+
+          <div class="setting-item">
+            <label for="musicSelect">Müzik:</label>
+            <select id="musicSelect" onchange="changeMusic()">
+              <option value="background.mp3">Varsayılan (Düşük Bütçeli Psikopat)</option>
+              <option value="background2.mp3">Hız Aşırtmalı Yıkım</option>
+              <option value="background3.mp3">Çöküş Öforisinin Etkileri</option>
+              <option value="background4.mp3">Yaprak Dökümünün Çağrısı</option>
+              <option value="background5.mp3">Gece Çekirdek Çitleme Keyfi</option>
+              <option value="background6.mp3">Metafiziksel İhtilal</option>
+              <option value="background7.mp3">5000 Yıllık Galaksi Senfonisi</option>
+              <option value="background8.mp3">Sıfırıncı Boyut Geçidi</option>
+              <option value="background9.mp3">Kaotik Yıldızlara Yolculuk</option>
+              <option value="background10.mp3">Sos Sokağında Çalan Müzik</option>
+              <option value="background11.mp3">KOMŞU TEYZE TESPİT EKİBİ (Bonus)</option>
+              <option value="background12.mp3">ÖLDÜM SANMIŞTIM (Bonus)</option>
+              <option value="background13.mp3">MERZİFONLU FIRINCININ YERİ (Bonus)</option>
+              <option value="background14.mp3">PİSLİKLER (Bonus)</option>
+              <option value="background15.mp3">ÖLÜMSÜZ (Bonus)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="settings-right">
+          <h2>Seçenekler</h2>
+          <div class="toggle-options">
+              <div class="toggle-item">
+                  <label>Vahşet / Kan</label>
+                  <label class="switch">
+                      <input type="checkbox" id="toggleGore" checked>
+                      <span class="slider"></span>
+                  </label>
+              </div>
+              <div class="toggle-item">
+                  <label>Minimap Ekranı</label>
+                  <label class="switch">
+                      <input type="checkbox" id="toggleMinimap" checked>
+                      <span class="slider"></span>
+                  </label>
+              </div>
+              <div class="toggle-item">
+                  <label>Cooldown Ekranı</label>
+                  <label class="switch">
+                      <input type="checkbox" id="toggleCooldown" checked>
+                      <span class="slider"></span>
+                  </label>
+              </div>
+              <div class="toggle-item">
+                <label>Ateş Modu Göstergesi</label>
+                <label class="switch">
+                    <input type="checkbox" id="toggleFireMode" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+          </div>
+      </div>
+  </div>
+          <button onclick="closeSettings()" class="close-button">Kapat</button>
+        </div>
+
+        <div id="fireMode"></div>
+        <script src="script.js"></script>
+        <script src="https://unpkg.com/lucide@latest"></script>
+</body>
+</html>

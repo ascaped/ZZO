@@ -1,0 +1,1268 @@
+body { 
+    margin: 0; 
+    background-color: #000033; 
+    color: #ffffff; 
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+canvas { 
+    display: block; 
+    margin: auto; 
+    border: 2px solid #4444ff;
+}
+.game-title {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 10px;
+    color: #0fff1b;
+    text-shadow: 0 0 10px #09ff00;
+}
+.info {
+    position: absolute;
+    top: 10%;
+    right: 1%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: rgba(0, 0, 100, 0.7);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #4444ff;
+}
+.info div {
+    margin-bottom: 10px;
+}
+.border {
+    position: absolute;
+    top: 24%;
+    right: 1%;
+    width: 20%;
+    border: 1px solid #4444ff;
+    background-color: rgba(0, 0, 100, 0.7);
+    padding: 15px;
+    border-radius: 10px;
+}
+.border div {
+    margin-bottom: 10px;
+}
+.largeBorder {
+    position: absolute;
+    top: 52.5%;
+    right: 1%;
+    width: 20%;
+    border: 1px solid #4444ff;
+    background-color: rgba(0, 0, 100, 0.7);
+    padding: 15px;
+    border-radius: 10px;
+}
+.largeBorder div {
+    margin-bottom: -15px;
+}
+#victoryScreen, #startScreen {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 100, 0.9);
+    color: white;
+    padding: 30px;
+    text-align: center;
+    border-radius: 15px;
+    border: 2px solid #4444ff;
+}
+/* YENİLGİ */
+.defeat-text {
+    color: #ff4444;
+    font-size: 16px;
+    font-style: italic;
+    text-align: center;
+    margin-top: 10px;
+    animation: glowPulse 2s infinite;
+}
+
+@keyframes glowPulse {
+    0% { text-shadow: 0 0 5px #ff4444; }
+    50% { text-shadow: 0 0 20px #ff4444; }
+    100% { text-shadow: 0 0 5px #ff4444; }
+}
+
+#defeatScreen .menu-button {
+    background: linear-gradient(45deg, #8b0000, #ff4444);
+    border: 2px solid #ff4444;
+}
+
+#defeatScreen .menu-button:hover {
+    background: linear-gradient(45deg, #ff4444, #8b0000);
+    transform: scale(1.05);
+}
+/* ZAFER */
+/* Zafer ekranı için özel stiller */
+#victoryScreen .menu-button {
+    background: linear-gradient(45deg, #2da44e, #4ade80);
+    border: 2px solid #4ade80;
+}
+
+#victoryScreen .menu-button:hover {
+    background: linear-gradient(45deg, #4ade80, #2da44e);
+    transform: scale(1.05);
+}
+
+.victory-text {
+    color: #ffd700;
+    font-size: 16px;
+    font-style: italic;
+    text-align: center;
+    margin-top: 10px;
+    animation: victoryGlow 2s infinite;
+}
+
+@keyframes victoryGlow {
+    0% { text-shadow: 0 0 5px #ffd700; }
+    50% { text-shadow: 0 0 20px #ffd700; }
+    100% { text-shadow: 0 0 5px #ffd700; }
+}
+button {
+    padding: 10px 20px;
+    background-color: #4444ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+button:hover {
+    background-color: #5555ff;
+}
+/* styles.css'e eklenecek stiller */
+.game-footer {
+    position: fixed;
+    bottom: 40px;
+    left: 51%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px 30px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.version-info {
+    font-size: 14px;
+    color: #ccc;
+    margin-bottom: 5px;
+}
+
+.warning-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    font-style: italic;
+}
+.settings-screen {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.7);
+z-index: 1000;
+justify-content: center;
+align-items: center;
+}
+
+.settings-content {
+background-color: #1a1a27;
+border-radius: 10px;
+padding: 30px;
+width: 300px;
+box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.settings-content h2 {
+color: #ffffff;
+margin-bottom: 20px;
+text-align: center;
+}
+
+.setting-item {
+margin-bottom: 20px;
+}
+
+.setting-item label {
+display: block;
+margin-bottom: 5px;
+color: #ffffff;
+}
+
+.setting-item select {
+width: 100%;
+padding: 8px;
+border-radius: 5px;
+background-color: #2b2b2b;
+color: #fff;
+border: none;
+}
+
+.close-button {
+    position: absolute;
+    top: 605px;
+    right: 560px;
+    padding: 10px 20px;
+    background: #4444ff;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.close-button:hover {
+    background: #5555ff;
+    transform: scale(1.05);
+}
+
+#settingsButton {
+position: fixed;
+top: 10px;
+right: 10px;
+width: 40px;
+height: 40px;
+border-radius: 60%;
+cursor: pointer;
+transition: background-color 0.3s;
+}
+/* Modern slider stilleri */
+.setting-item input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    outline: none;
+    margin: 15px 0;
+}
+
+/* Slider başlığı */
+.setting-item input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Hover efekti */
+.setting-item input[type="range"]::-webkit-slider-thumb:hover {
+    background: #ffffff;
+    transform: scale(1.2);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Firefox için stiller */
+.setting-item input[type="range"]::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.setting-item input[type="range"]::-moz-range-thumb:hover {
+    background: #ffffff;
+    transform: scale(1.2);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Label ve değer stilleri */
+.setting-item label {
+    color: white;
+    font-size: 14px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.setting-item span {
+    color: white;
+    font-size: 14px;
+    opacity: 0.9;
+}
+#stats {
+display: flex;
+align-items: center;
+}
+/* styles.css'e ekle */
+.level-up-text {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    font-weight: bold;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.level-up-text span {
+    display: inline-block;
+    animation: colorChange 0.5s infinite;
+}
+
+.level-up-text.show {
+    animation: fadeInOut 2s forwards;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    20% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    80% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+}
+
+@keyframes colorChange {
+    0% { color: #ff0000; }
+    16.6% { color: #ff9900; }
+    33.3% { color: #ffff00; }
+    50% { color: #00ff00; }
+    66.6% { color: #0000ff; }
+    83.3% { color: #9900ff; }
+    100% { color: #ff0000; }
+}
+.info div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Tüm ikonların varsayılan stili */
+.info svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
+}
+/* styles.css'e ekle */
+.drone-text {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    z-index: 1000;
+    animation: droneTextAnim 1s forwards;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes droneTextAnim {
+    0% {
+        opacity: 0;
+        color: #ffffff;
+    }
+    25% {
+        opacity: 1;
+        color: #ff0000;
+    }
+    50% {
+        color: #4a4a4a;
+    }
+    75% {
+        color: #1a1a1a;
+    }
+    100% {
+        opacity: 0;
+        color: #000000;
+        transform: translate(-50%, -80%);
+    }
+}
+/* Her ikona özel renkler */
+#health svg {
+    stroke: #ff4444;
+    color: #ff4444;
+}
+
+#score svg {
+    stroke: #ffd700;
+    color: #ffd700;
+}
+
+#level svg {
+    stroke: #00ffff;
+    color: #00ffff;
+}
+.achievement-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: slideIn 0.5s ease-out;
+    z-index: 1000;
+    border: 2px solid gold;
+}
+
+.achievement-notification i {
+    width: 30px;
+    height: 30px;
+    color: gold;
+}
+
+.achievement-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.achievement-title {
+    font-weight: bold;
+    color: gold;
+}
+
+.achievement-desc {
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.fade-out {
+    animation: fadeOut 0.5s ease-in forwards;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+.game-menu {
+    background-color: rgba(32, 32, 32, 0.95);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    padding: 2rem;
+  }
+  
+  .menu-button {
+    position: relative;
+    padding: 12px 24px;
+    margin: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff);
+    background-size: 300% 300%;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    animation: gradient 5s ease infinite;
+  }
+  
+  .menu-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  }
+  
+  .menu-button:active {
+    transform: translateY(0);
+  }
+  .game-menu {
+    background-image: url('startscreen.png');
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.menu-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.game-logo {
+    max-width: 400px;
+    margin-bottom: 30px;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 250px;
+}
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+/* KIRMIZI */
+body.red {
+background-color: #330000;
+color: #ffffff;
+}
+.red canvas {
+border: 2px solid #ff4444;
+}
+.red .info, .red .border {
+background-color: rgba(100, 0, 0, 0.7);
+border: 1px solid #ff4444;
+}
+.red button {
+background-color: #ff4444;
+}
+.red button:hover {
+background-color: #ff5555;
+}
+.red .info, .red .largeBorder {
+background-color: rgba(100, 0, 0, 0.7);
+border: 1px solid #ff4444;
+}
+
+/* YEŞİL */
+body.green {
+background-color: #002700;
+color: #ffffff;
+}
+.green canvas {
+border: 2px solid #44ff44;
+}
+.green .info, .green .border {
+background-color: rgba(0, 100, 0, 0.7);
+border: 1px solid #44ff44;
+}
+.green button {
+background-color: #44ff44;
+color: #000000;
+}
+.green button:hover {
+background-color: #55ff55;
+}
+.green .info, .green .largeBorder {
+background-color: rgba(0, 100, 0, 0.7);
+border: 1px solid #44ff44;
+}
+
+/* MOR */
+body.purple {
+    background-color: #2D0A31;
+    color: #ffffff;
+}
+.purple canvas {
+    border: 2px solid #8A2BE2;
+}
+.purple .info, .purple .border {
+    background-color: rgba(89, 23, 99, 0.7);
+    border: 1px solid #9370DB;
+}
+.purple button {
+    background-color: #663399;
+}
+.purple button:hover {
+    background-color: #9370DB;
+}
+.purple .info, .purple .largeBorder {
+    background-color: rgba(89, 23, 99, 0.7);
+    border: 1px solid #9370DB;
+}
+
+/* SİYAH */
+body.black {
+background-color: #000000;
+color: #ffffff;
+}
+.black canvas {
+border: 2px solid #444444;
+}
+.black .info, .black .border {
+background-color: rgba(40, 40, 40, 0.7);
+border: 1px solid #444444;
+}
+.black button {
+background-color: #444444;
+}
+.black button:hover {
+background-color: #555555;
+}
+.black .info, .black .largeBorder {
+background-color: rgba(40, 40, 40, 0.7);
+border: 1px solid #444444;
+}
+
+/* TURUNCU */
+body.orange {
+    background-color: #31150A;
+    color: #ffffff;
+}
+.orange canvas {
+    border: 2px solid #FF8C00;
+}
+.orange .info, .orange .border {
+    background-color: rgba(99, 51, 23, 0.7);
+    border: 1px solid #FFA500;
+}
+.orange button {
+    background-color: #D2691E;
+}
+.orange button:hover {
+    background-color: #c27e00;
+}
+.orange .info, .orange .largeBorder {
+    background-color: rgba(99, 51, 23, 0.7);
+    border: 1px solid #FFA500;
+}
+
+/* RANDOM */
+body.random {
+    background-image: url('background.png'); /* Arkaplan resmi */
+    background-size: cover; /* Resmi ekrana sığdır */
+    background-position: center; /* Resmi ortala */
+    background-repeat: no-repeat; /* Resmi tekrarlama */
+    background-attachment: fixed; /* Resim sabit kalsın */
+    color: #ffffff;
+ }
+ 
+ .random canvas {
+    border: 2px solid rgba(255, 255, 255, 0.7); /* Yarı saydam beyaz çerçeve */
+    backdrop-filter: blur(5px); /* Arkaplanı bulanıklaştır */
+    background-color: rgba(0, 0, 0, 0.3); /* Yarı saydam siyah arka plan */
+ }
+ 
+ .random .info, .random .border {
+    background-color: rgba(0, 0, 0, 0.6); /* Yarı saydam siyah */
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+ }
+ 
+ .random button {
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+ }
+ 
+ .random button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+ }
+ 
+ .random .info, .random .largeBorder {
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+ }
+ /* Default (Mavi) tema */
+.minimap-container, .cooldown-container {
+    background: rgba(0, 0, 100, 0.7);
+    border: 1px solid #4444ff;
+}
+
+/* Kırmızı tema */
+.red .minimap-container, .red .cooldown-container {
+    background: rgba(100, 0, 0, 0.7);
+    border: 1px solid #ff4444;
+}
+
+/* Yeşil tema */
+.green .minimap-container, .green .cooldown-container {
+    background: rgba(0, 100, 0, 0.7);
+    border: 1px solid #44ff44;
+}
+
+/* Mor tema */
+.purple .minimap-container, .purple .cooldown-container {
+    background: rgba(45, 10, 49, 0.7);
+    border: 1px solid #8A2BE2;
+}
+
+/* Turuncu tema */
+.orange .minimap-container, .orange .cooldown-container {
+    background: rgba(99, 51, 23, 0.7);
+    border: 1px solid #FFA500;
+}
+
+/* Siyah tema */
+.black .minimap-container, .black .cooldown-container {
+    background: rgba(40, 40, 40, 0.7);
+    border: 1px solid #444444;
+}
+
+/* Random tema */
+.random .minimap-container, .random .cooldown-container {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+}
+
+/* Cooldown çubuğu teması */
+.cooldown-bar::after { background: #4444ff; }
+.red .cooldown-bar::after { background: #ff4444; }
+.green .cooldown-bar::after { background: #44ff44; }
+.purple .cooldown-bar::after { background: #8A2BE2; }
+.orange .cooldown-bar::after { background: #FFA500; }
+.black .cooldown-bar::after { background: #444444; }
+.random .cooldown-bar::after { background: rgba(255, 255, 255, 0.7); }
+/* İSTATİKLER */
+.stats-panel {
+    margin: 15px 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.stat-item {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    color: #ddd;
+}
+/* styles.css'e ekle */
+.menu-button-secondary {
+    background: transparent !important;
+    color: #fff;
+    border: 2px solid #fff !important;
+    margin-top: 10px;
+}
+
+.menu-button-secondary:hover {
+    background: rgba(255,255,255,0.1) !important;
+}
+.shop-screen {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 999;
+}
+
+.shop-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    color: white;
+}
+.shop-category {
+    margin-bottom: 20px;
+}
+
+.shop-category h3 {
+    color: #fff;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.shop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    padding: 10px;
+}
+
+.shop-item {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.shop-item:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.shop-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.shop-item.purchased {
+    opacity: 0.6;
+    cursor: not-allowed;
+    position: relative;
+}
+
+.shop-item.purchased::after {
+    content: "✓";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 255, 0, 0.8);
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.item-info {
+    margin-top: 8px;
+    text-align: center;
+}
+
+.item-name {
+    color: #fff;
+    font-size: 0.9em;
+    margin-bottom: 4px;
+}
+
+.item-price {
+    color: #ffd700;
+    font-weight: bold;
+}
+/* Ana currency stil tanımı */
+#currency {
+    position: fixed;
+    top: 20px;
+    right: 1%;
+    padding: 12px 16px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+/* Default (Mavi) tema */
+#currency {
+    background: rgba(0, 0, 100, 0.7);
+    border: 1px solid #4444ff;
+}
+
+/* Kırmızı tema */
+.red #currency {
+    background: rgba(100, 0, 0, 0.7);
+    border: 1px solid #ff4444;
+}
+
+/* Yeşil tema */ 
+.green #currency {
+    background: rgba(0, 100, 0, 0.7);
+    border: 1px solid #44ff44;
+}
+
+/* Mor tema */
+.purple #currency {  
+    background: rgba(45, 10, 49, 0.7);
+    border: 1px solid #8A2BE2;
+}
+
+/* Turuncu tema */
+.orange #currency {
+    background: rgba(99, 51, 23, 0.7);
+    border: 1px solid #FFA500;
+}
+/* Siyah tema */
+.black #currency {
+    background: rgba(40, 40, 40, 0.7);
+    border: 1px solid #444444;
+}
+/* Random tema */
+.random #currency {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+}
+
+/* Para miktarı */
+#currency span {
+    color: #ffd700;
+    font-size: 16px;
+}
+
+/* Hover efekti */
+#currency:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    filter: brightness(1.2);
+}
+
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    animation: slideIn 0.3s ease-out;
+}
+
+.notification.success {
+    background: rgba(46, 204, 113, 0.9);
+}
+
+.notification.error {
+    background: rgba(231, 76, 60, 0.9);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+/* SOL PANEL */
+.left-panel {
+    position: fixed;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.minimap-container {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #333;
+}
+
+#minimapCanvas {
+    border: 1px solid #444;
+}
+
+.minimap-label {
+    color: #fff;
+    text-align: center;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.cooldown-container {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cooldown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cooldown-icon {
+    width: 30px;
+    height: 30px;
+    background: #333;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* styles.css güncelleme */
+.cooldown-bar {
+    width: 100px;
+    height: 8px;
+    background: #444;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.cooldown-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: #5555ff;
+    width: var(--progress, 100%);
+    transition: width var(--duration, 0ms) linear;
+}
+#settingsButton:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+#settingsButton:active {
+    transform: scale(0.95);
+}
+#shopButton:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+#shopButton:active {
+    transform: scale(0.95);
+}
+/* Ortak buton stili */
+.game-button {
+    position: fixed; 
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    top: 20px;
+}
+
+.game-button:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.game-button:active {
+    transform: scale(0.95);
+}
+
+/* Buton pozisyonları */
+#settingsButton {
+    position: fixed;
+    top: 20px;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#shopButton {
+    position: fixed;
+    top: 20px;
+    left: 70px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+/* Tek bir tanım yeterli */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1); 
+    }
+}
+/* Ekran animasyonları için */
+.settings-screen,
+.shop-screen {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease;
+}
+/* Ayarlar ekranı stilleri */
+.settings-content {
+    display: flex;
+    width: 800px;
+    background: #1a1a27;
+    border-radius: 10px;
+    padding: 30px;
+    gap: 40px;
+}
+
+.settings-left, .settings-right {
+    flex: 1;
+}
+
+.toggle-options {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.toggle-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+}
+
+/* Toggle switch stili */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #444;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #5555ff;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+/* ATEŞ MODU GÖSTERGESİ */
+#fireMode {
+    position: fixed;
+    bottom: 20px;
+    left: 12px;
+    width: 300px;
+    padding: 12px 15px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    white-space: nowrap;
+}
+
+#fireMode:hover {
+    background: rgba(0, 0, 0, 0.8);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0, 0, 255, 0.3);
+}
+/* UYARI */
+.warning-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 1s ease;
+}
+
+.fade-out {
+    animation: fadeOut 1s ease forwards;
+}
+
+.warning-img {
+    position: relative;
+    width: 1000px;
+    height: 600px;
+    z-index: 1;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
